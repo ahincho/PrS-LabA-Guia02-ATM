@@ -1,5 +1,6 @@
 
-import src
+from user import User
+from new_atm import Cajero
 import unittest
 
 # Observaciones
@@ -18,3 +19,26 @@ import unittest
 class TestNewAtm(unittest.TestCase):
     def test_should_be_true(self):
         self.assertTrue(True)
+    def test_user_5000(self):
+        user = User(5000, "1234")
+        atm = Cajero(user)
+        self.assertEqual(atm.user.get_salary(), 5000)
+    def test_withdraw_more_than_salary(self):
+        user = User(1000, "1234")
+        atm = Cajero(user)
+        with self.assertRaises(ValueError):
+            atm.withdraw(2200)
+    def test_withdraw_more_3000(self):
+        user = User(5000, "1234")
+        atm = Cajero(user)
+        with self.assertRaises(ValueError):
+            atm.withdraw(3200)
+    def test_deposit_more_3000(self):
+        user = User(5000, "1234")
+        atm = Cajero(user)
+        with self.assertRaises(ValueError):
+            atm.deposit(3200)
+
+# Ejecutar pruebas unitarias
+if __name__ == "__main__":
+    unittest.main()
