@@ -14,15 +14,15 @@ import unittest
 class TestUser(unittest.TestCase):
     def test_set_salary_1000(self):
         user = User(1000, "1234")
-        self.assertEquals(user.get_salary(), 1000)
+        self.assertEqual(user.get_salary(), 1000)
     def test_set_password_1234(self):
         user = User(1000, "1234")
-        self.assertEquals(user.get_password(), "1234")
+        self.assertEqual(user.get_password(), "1234")
     def test_set_negative_salary(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             user = User(-1000, "1234")
     def test_set_invalid_password(self):
-        with self.assertRaises(TypeError):
+        with self.assertRaises(ValueError):
             usert = User(1000, "123")
 # Ejecutar pruebas unitarias
 if __name__ == "__main__":
