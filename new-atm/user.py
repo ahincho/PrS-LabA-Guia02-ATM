@@ -15,4 +15,3 @@ class User():
     def __init__(self, salary, password):
         self.set_salary(salary)
         self.set_password(password)
-

@@ -1,5 +1,5 @@
 
-from src.user import User
+from user import User
 import unittest
 
 # Observaciones
@@ -10,6 +10,7 @@ import unittest
 # - Un caso donde se intente agregar un salario negativo
 # - Un caso donde se el password sea menor a 4 caracteres
 
+# Implementando pruebas unitarias del usuario
 class TestUser(unittest.TestCase):
     def test_set_salary_1000(self):
         user = User(1000, "1234")
@@ -23,3 +24,6 @@ class TestUser(unittest.TestCase):
     def test_set_invalid_password(self):
         with self.assertRaises(TypeError):
             usert = User(1000, "123")
+# Ejecutar pruebas unitarias
+if __name__ == "__main__":
+    unittest.main()
