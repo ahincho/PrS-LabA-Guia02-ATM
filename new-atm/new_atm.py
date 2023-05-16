@@ -33,5 +33,3 @@ class Cajero:
 
     def view_salary(self):
         return self.user.get_salary()
-    
-#app = Cajero()
