@@ -29,7 +29,7 @@ class Cajero:
                 contador += 1
 
     def menu(self):
-        os.system("cls")   # esto es solo para windows
+        os.system("cls")   # Esto es solo para windows
         self.contraseña()
         opcion = 0
         while opcion != "4":
