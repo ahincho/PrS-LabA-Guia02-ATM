@@ -85,8 +85,19 @@ class Cajero:
         print("You lost all the chances.")
 
 def main():
+    # Recover credentials
+    with open("./user.txt", 'r') as archive:
+        lines = archive.readlines()
+    # Dictionary with User values
+    data = {}
+    # Repeat trought the lines
+    for line in lines:
+        key, value = line.strip().split(":")
+        key = key.strip()
+        value = value.strip()
+        data[key] = value
     # Run
-    atm = Cajero(User(5000, "1234"))
+    atm = Cajero(User(float(data['salary']), data['pwd']))
     atm.main()
 
 if __name__ == "__main__":
