@@ -8,7 +8,7 @@
 from enum import Enum
 
 class ATM_Options():
-    DEPOSIT = 1
-    WITHDRAW = 2
-    SHOW_SALARY = 3
-    EXIT = 4
+    DEPOSIT = '1'
+    WITHDRAW = '2'
+    SHOW_SALARY = '3'
+    EXIT = '4'
