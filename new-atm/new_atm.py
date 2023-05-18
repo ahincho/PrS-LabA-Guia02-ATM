@@ -27,8 +27,13 @@ class Cajero:
     def breakLine(self):
         print("*" * cfg.BREAKLINE_CHARS)
     
+    def must_be_positive(self,amount):
+        if amount < 0:
+            raise ValueError(f"You must input a positive value")
+        return amount
+
     def withdraw(self, amount_withdraw):
-        if (self.current_withdraw_amount + amount_withdraw) > cfg.MAX_WITHDRAW:
+        if (self.current_withdraw_amount + self.must_be_positive(amount_withdraw)) > cfg.MAX_WITHDRAW:
             raise ValueError(f"You cant withdraw more than {cfg.MAX_WITHDRAW} in the same day")
         if self.user.get_salary() < amount_withdraw: 
             raise ValueError("Amount must be less than salary.")
@@ -37,7 +42,7 @@ class Cajero:
         return self.user.get_salary()
 
     def deposit(self, amount_deposit):
-        if (self.current_deposit_amount + amount_deposit) > cfg.MAX_DEPOSIT:
+        if (self.current_deposit_amount + self.must_be_positive(amount_deposit)) > cfg.MAX_DEPOSIT:
             raise ValueError(f"You cant desposit more than {cfg.MAX_DEPOSIT} in the same day")
         self.user.set_salary(self.user.get_salary() + amount_deposit)
         self.current_deposit_amount += amount_deposit
@@ -54,7 +59,7 @@ class Cajero:
     def show_menu(self):
         while True:
             self.print_option()
-            option = int(input("Select Option: "))
+            option = input("Select Option: ")
             match option:
                 case op.DEPOSIT:
                     try:
