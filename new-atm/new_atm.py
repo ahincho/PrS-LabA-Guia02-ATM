@@ -5,6 +5,7 @@
 @author: dneira 
 """
 import os
+from atm_options import ATM_Options as op
 from user import User
 
 class Cajero:
@@ -33,3 +34,25 @@ class Cajero:
 
     def view_salary(self):
         return self.user.get_salary()
+
+    def show_menu(self):
+        option = input("Ingresa Opcion: ")
+        match option:
+            case op.DEPOSIT:
+                amount_deposit = input("Ingresa Opcion: ")
+                self.deposit(amount_deposit)
+                show_menu()
+            case op.WITHDRAW:
+                amount_withdraw = input("Ingresa Opcion: ")
+                self.withdraw(amount_withdraw)
+                show_menu()
+
+            case op.SHOW_SALARY:
+                print(f"salary:{self.user.get_salary()} ")
+                show_menu()
+            case op.EXIT:
+                print(f"Chau")
+                return
+                
+
+
