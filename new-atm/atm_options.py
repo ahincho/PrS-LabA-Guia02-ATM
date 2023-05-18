@@ -12,4 +12,3 @@ class ATM_Options():
     WITHDRAW = 2
     SHOW_SALARY = 3
     EXIT = 4
-
