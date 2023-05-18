@@ -4,6 +4,7 @@
 @author: ahincho
 @author: dneira 
 """
+
 import os
 from atm_options import ATM_Options as op
 from user import User
@@ -28,31 +29,45 @@ class Cajero:
 
     def deposit(self, amount_deposit):
         if amount_deposit > 3000:
-            raise ValueError("Amount must be greater than 3000")
+            raise ValueError("Amount must be less than 3000")
         self.user.set_salary(self.user.get_salary()+amount_deposit)
         return self.user.get_salary()
 
     def view_salary(self):
         return self.user.get_salary()
 
+    def print_option(self):
+        print("*" * 25)
+        print("1. Deposit\n2. Withdraw\n3. Show Salary\n4. Exit")
+        print("*" * 25)
+    
     def show_menu(self):
-        option = input("Ingresa Opcion: ")
-        match option:
-            case op.DEPOSIT:
-                amount_deposit = input("Ingresa Opcion: ")
-                self.deposit(amount_deposit)
-                show_menu()
-            case op.WITHDRAW:
-                amount_withdraw = input("Ingresa Opcion: ")
-                self.withdraw(amount_withdraw)
-                show_menu()
+        while True:
+            self.print_option()
+            option = int(input("Select Option: "))
+            match option:
+                case op.DEPOSIT:
+                    try:
+                        amount_deposit = float(input("Amount to pay: "))
+                        self.deposit(amount_deposit)
+                    except:
+                        print("Amount must be less than 3000. Try again.")
+                case op.WITHDRAW:
+                    try:
+                        amount_withdraw = float(input("Amount to withdraw: "))
+                        self.withdraw(amount_withdraw)
+                    except:
+                        print("Amount must be less than 3000. Try again.")
+                case op.SHOW_SALARY:
+                    print(f"Salary: {self.user.get_salary()}")
+                case op.EXIT:
+                    print(f"Goodbye. See ya.")
+                    break
+                case _:
+                    print("Invalid Option. Try again.")
+    def main(self):
+        self.show_menu()
 
-            case op.SHOW_SALARY:
-                print(f"salary:{self.user.get_salary()} ")
-                show_menu()
-            case op.EXIT:
-                print(f"Chau")
-                return
-                
-
-
+# Run
+atm = Cajero(User(5000, "1234"))
+atm.main()
