@@ -5,6 +5,7 @@
 @author: dneira 
 """
 
+import getpass as gp # We see some problems in differents IDEs
 from atm_options import ATM_Options as op
 from atm_config import ATM_Config as cfg
 from user import User
@@ -22,6 +23,9 @@ class Cajero:
 
     def get_user(self):
         return self.user
+    
+    def breakLine(self):
+        print("*" * cfg.BREAKLINE_CHARS)
     
     def withdraw(self, amount_withdraw):
         if (self.current_withdraw_amount + amount_withdraw) > cfg.MAX_WITHDRAW:
@@ -43,9 +47,9 @@ class Cajero:
         return self.user.get_salary()
 
     def print_option(self):
-        print("*" * 25)
+        self.breakLine()
         print("1. Deposit\n2. Withdraw\n3. Show Salary\n4. Exit")
-        print("*" * 25)
+        self.breakLine()
     
     def show_menu(self):
         while True:
@@ -75,14 +79,18 @@ class Cajero:
     def main(self):
         auxChances = 0
         while auxChances < cfg.MAX_CHANCES:
-            pwd = input("Give your password: ")
+            self.breakLine()
+            pwd = gp.getpass("Welcome. Give your password: ")
+            self.breakLine()
             if pwd == self.user.get_password():
                 self.show_menu()
                 auxChances = 0
             else:
                 auxChances += 1
                 print(f"Incorrect password. Try again. You got {cfg.MAX_CHANCES - auxChances} chances more.")
-        print("You lost all the chances.")
+        self.breakLine()
+        print("You lost all the chances. We are sending a bank staff!")
+        self.breakLine()
 
 def main():
     # Recover credentials
