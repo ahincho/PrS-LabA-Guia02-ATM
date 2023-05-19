@@ -20,34 +20,50 @@ import unittest
 # - Al menos una prueba donde no te permita retirar cantidades negativas 
 
 class TestNewAtm(unittest.TestCase):
-    def test_should_be_true(self):
-        self.assertTrue(True)
-    def test_user_5000(self):
-        user = User(5000, "1234")
+    
+    def test_set_an_user_salary_5000(self):
+        user = User("Juan", "1234", 5000, 0, 0)
         atm = Cajero(user)
         self.assertEqual(atm.user.get_salary(), 5000)
-    def test_withdraw_more_than_salary(self):
-        user = User(1000, "1234")
-        atm = Cajero(user)
-        with self.assertRaises(ValueError):
-            atm.withdraw(2200)
-    def test_withdraw_more_3000(self):
-        user = User(5000, "1234")
-        atm = Cajero(user)
-        with self.assertRaises(ValueError):
-            atm.withdraw(3200)
-    def test_deposit_more_3000(self):
-        user = User(5000, "1234")
-        atm = Cajero(user)
-        with self.assertRaises(ValueError):
-            atm.deposit(3200)
-    def test_amount_must_be_positive(self):
-        user = User(5000, "1234")
-        atm = Cajero(user)
-        with self.assertRaises(ValueError):
-            atm.withdraw(-3200)
-            atm.deposit(-3200)
-
+    
+    def test_invalid_withdraw(self):
+        with self.assertRaises(TypeError): # Type Error on amount
+            rUser = User("Rodrigo", "superPwd", 2000, 0, 0)
+            atm = Cajero(rUser)
+            atm.withdraw("amount")
+        with self.assertRaises(ValueError): # Value Error on amount
+            dUser = User("Darwin", "superPwd", 2000, 0, 0)
+            atm = Cajero(dUser)
+            atm.withdraw(-5000)
+    
+    def test_withdraw_moreThan_limit(self):
+        with self.assertRaises(Exception):
+            user = user = User("Juan", "1234", 1000, 0, 2500)
+            atm = Cajero(user)
+            atm.withdraw(1000)
+    
+    def test_withdraw_moreThan_salary(self):
+        with self.assertRaises(Exception):
+            user = user = User("Juan", "1234", 1000, 0, 0)
+            atm = Cajero(user)
+            atm.withdraw(1500)
+    
+    def test_deposit_withdraw(self):
+        with self.assertRaises(TypeError): # Type Error on amount
+            rUser = User("Rodrigo", "superPwd", 2000, 0, 0)
+            atm = Cajero(rUser)
+            atm.deposit("amount")
+        with self.assertRaises(ValueError): # Value Error on amount
+            dUser = User("Darwin", "superPwd", 2000, 0, 0)
+            atm = Cajero(dUser)
+            atm.deposit(-5000)
+    
+    def test_deposit_moreThan_limit(self):
+        with self.assertRaises(Exception):
+            user = user = User("Juan", "1234", 1000, 2500, 0)
+            atm = Cajero(user)
+            atm.deposit(1000)
+    
 # Ejecutar pruebas unitarias
 if __name__ == "__main__":
     unittest.main()
