@@ -14,7 +14,7 @@ from user import User
 def breakLine():
     print("*" * cfg.BREAKLINE_CHARS)
 
-class Cajero:
+class NewATM:
 
     def __init__(self, user):
         self.set_user(user)
@@ -41,7 +41,7 @@ class Cajero:
             raise ValueError("The amount to withdraw must be positive.")
         if (self.user.get_today_withdraw() + amount_withdraw) > cfg.MAX_WITHDRAW:
             print(f"You have withdraw {self.user.get_today_withdraw()} this day.")
-            raise Exception(f"You cant withdraw more than {cfg.MAX_WITHDRAW} in the same day")
+            raise Exception(f"You cant withdraw more than {cfg.CURRENCY}{cfg.MAX_WITHDRAW} in the same day")
         if self.user.get_salary() < amount_withdraw:
             raise Exception("Amount to withdraw must be equals or less than your salary.")
         self.user.set_salary(self.user.get_salary() - amount_withdraw) # Removing the amount to withdraw
@@ -54,8 +54,8 @@ class Cajero:
         if amount_deposit < 0: # Value error
             raise ValueError("The amount to deposit must be positive.")
         if (self.user.get_today_deposit() + amount_deposit) > cfg.MAX_DEPOSIT:
-            print(f"You have deposit {self.user.get_today_deposit()} this day.")
-            raise Exception(f"You cant desposit more than {cfg.MAX_DEPOSIT} in the same day")
+            print(f"You have deposit {cfg.CURRENCY}{self.user.get_today_deposit()} this day.")
+            raise Exception(f"You cant desposit more than {cfg.CURRENCY}{cfg.MAX_DEPOSIT} in the same day")
         self.user.set_salary(self.user.get_salary() + amount_deposit) # Adding the amount to deposit
         self.user.set_today_deposit(self.user.get_today_deposit() + amount_deposit) # Adding the amount to the deposit day limit
         return self.user.get_salary()
@@ -94,7 +94,7 @@ class Cajero:
                             self.withdraw(amount_withdraw)
                         except Exception as e:
                             print(e)
-                    case op.SHOW_SALARY:
+                    case op.SHOW_STATUS:
                         print(f"{self.user.get_name()}'s accout status:")
                         print(self.show_account_info())
                     case op.EXIT:
@@ -131,7 +131,7 @@ def main():
             print(f"Incorrect password. Try again. You got {cfg.MAX_CHANCES - auxChances} chances more.")
         else:
             print(f"Hi {user.get_name()}. Welcome to the Refactored ATM.")
-            atm = Cajero(user)
+            atm = NewATM(user)
             atm.show_menu()
             auxChances = 0
     breakLine()
