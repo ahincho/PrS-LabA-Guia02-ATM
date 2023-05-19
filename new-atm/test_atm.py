@@ -29,7 +29,7 @@ class TestNewAtm(unittest.TestCase):
         with self.assertRaises(ValueError):
             user = User("Angel", "12", 1500, 0, 0)
             atm = NewATM(user)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             atm = NewATM(None)
         
     def test_set_an_user_salary_5000(self):
@@ -90,6 +90,18 @@ class TestNewAtm(unittest.TestCase):
             user = User("Juan", "1234", 2500, 0, 0)
             atm = NewATM(user)
             atm.deposit(-1500)
+    
+    def test_valid_depositOf_500(self):
+        user = User("Angel", "superPwd", 2000, 0, 0)
+        atm = NewATM(user)
+        atm.deposit(500)
+        self.assertEqual(atm.get_user().get_salary(), 2500)
+        
+    def test_valid_withdrawOf_1000(self):
+        user = User("Angel", "superPwd", 2000, 0, 0)
+        atm = NewATM(user)
+        atm.withdraw(1000)
+        self.assertEqual(atm.get_user().get_salary(), 1000)
     
 # Ejecutar pruebas unitarias
 if __name__ == "__main__":
