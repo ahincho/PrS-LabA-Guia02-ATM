@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Angel",
+        "password": "superPwd",
+        "salary": 5000,
+        "today_deposit": 0,
+        "today_withdraw": 0
+    },
+    {
+        "name": "Darwin",
+        "password": "1234",
+        "salary": 4500,
+        "today_deposit": 500,
+        "today_withdraw": 100
+    },
+    {
+        "name": "Juan",
+        "password": "4321",
+        "salary": 3500,
+        "today_deposit": 3000,
+        "today_withdraw": 3000
+    }
+]
