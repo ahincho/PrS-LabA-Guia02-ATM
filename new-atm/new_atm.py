@@ -68,7 +68,11 @@ class Cajero:
 
     def print_options(self):
         breakLine()
-        print("1. Deposit\n2. Withdraw\n3. Show Salary\n4. Exit")
+        deposit_label = f"{op.DEPOSIT}. Deposit.\n"
+        withdraw_label = f"{op.WITHDRAW}. Withdraw.\n"
+        status_label = f"{op.SHOW_STATUS}. Show Account Status.\n"
+        exit_label = f"{op.EXIT}. Exit."
+        print(deposit_label + withdraw_label + status_label + exit_label)
         breakLine()
     
     def show_menu(self):
@@ -102,12 +106,15 @@ class Cajero:
                 print("Your input has to be an integer which represents an option on the menu.")
 
 def search_user(name, password):
-    with open("users.json") as file:
-        users = json.load(file)
-        for user in users:
-            if user["name"] == name and user["password"] == password:
-                return User(user["name"], user["password"], user["salary"], user["today_deposit"], user["today_withdraw"])
-        return None
+    try:
+        with open(f"{cfg.USERS_DB}") as file:
+            users = json.load(file)
+            for user in users:
+                if user["name"] == name and user["password"] == password:
+                    return User(user["name"], user["password"], user["salary"], user["today_deposit"], user["today_withdraw"])
+            return None
+    except FileNotFoundError:
+        print("Users database had been removed. Please contact the bank staff.")
 
 def main():
     # Recover credentials
