@@ -87,13 +87,13 @@ class NewATM:
                             amount_deposit = float(input(f"Amount to pay: {cfg.CURRENCY}"))
                             self.deposit(amount_deposit)
                         except Exception as e:
-                            print(e)
+                            print("You have to write an positive amount to pay.")
                     case op.WITHDRAW:
                         try:
                             amount_withdraw = float(input(f"Amount to withdraw: {cfg.CURRENCY}"))
                             self.withdraw(amount_withdraw)
                         except Exception as e:
-                            print(e)
+                            print("You have to write an positive amount to withdraw.")
                     case op.SHOW_STATUS:
                         print(f"{self.user.get_name()}'s accout status:")
                         print(self.show_account_info())
