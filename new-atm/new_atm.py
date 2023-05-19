@@ -40,7 +40,7 @@ class NewATM:
         if amount_withdraw < 0: # Value error
             raise ValueError("The amount to withdraw must be positive.")
         if (self.user.get_today_withdraw() + amount_withdraw) > cfg.MAX_WITHDRAW:
-            print(f"You have withdraw {self.user.get_today_withdraw()} this day.")
+            print(f"You have withdraw {cfg.CURRENCY}{self.user.get_today_withdraw()} this day.")
             raise Exception(f"You cant withdraw more than {cfg.CURRENCY}{cfg.MAX_WITHDRAW} in the same day")
         if self.user.get_salary() < amount_withdraw:
             raise Exception("Amount to withdraw must be equals or less than your salary.")
